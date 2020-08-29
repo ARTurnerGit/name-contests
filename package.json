@@ -20,6 +20,7 @@
   "homepage": "https://github.com/reactjscamp/name-contests#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "graphql": "^15.3.0",
     "mongodb": "^2.1.18",
     "pg": "^6.0.1"
   },
