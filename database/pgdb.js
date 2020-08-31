@@ -10,7 +10,7 @@ module.exports = (pgPool) => {
 
     getContests(user) {
       return pgPool
-        .query(`select * from contests where created_by = $1`, [user])
+        .query(`select * from contests where created_by = $1`, [user.id])
         .then((res) => humps.camelizeKeys(res.rows));
     },
   };
