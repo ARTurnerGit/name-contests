@@ -7,9 +7,10 @@ module.exports = (pgPool) => {
         .query(`select * from users where api_key = $1`, [apiKey])
         .then((res) => humps.camelizeKeys(res.rows[0]));
     },
+
     getUserById(userId) {
       return pgPool
-        .query(`select * from users where api_key = $1`, [userId])
+        .query(`select * from users where id = $1`, [userId])
         .then((res) => humps.camelizeKeys(res.rows[0]));
     },
 
