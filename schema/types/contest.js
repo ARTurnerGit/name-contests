@@ -3,9 +3,11 @@ const {
   GraphQLID,
   GraphQLNonNull,
   GraphQLString,
+  GraphQLList,
 } = require("graphql");
 
 const ContestStatusType = require("./contest-status");
+const pgdb = require("../../database/pgdb");
 
 module.exports = new GraphQLObjectType({
   name: "ContestType",
