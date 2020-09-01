@@ -45,5 +45,14 @@ module.exports = (pgPool) => {
         )
         .then((res) => humps.camelizeKeys(res.rows[0]));
     },
+
+    getActivitiesForUserIds(userIds) {
+      return pgPool
+        .query(
+          `select created_by, created_at, label, '' as title, 'name' as activity_type from names where created_by = ANY($1) union select created_by, created_at, '' as label, title, 'contest' as activity_type from contests where created_by = ANY($1)`,
+          [userIds]
+        )
+        .then((res) => orderedFor(res.rows, userIds, "createdBy", false));
+    },
   };
 };
