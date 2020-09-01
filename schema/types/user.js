@@ -8,7 +8,6 @@ const {
 } = require("graphql");
 
 const ContestType = require("./contest");
-const mdb = require("../../database/mdb");
 
 module.exports = new GraphQLObjectType({
   name: "UserType",
@@ -26,23 +25,22 @@ module.exports = new GraphQLObjectType({
     },
     contestsCount: {
       type: GraphQLInt,
-      resolve(obj, args, context, { fieldName }) {
-        const { mPool } = context;
-        return mdb(mPool).getCounts(obj, fieldName);
+      resolve(obj, args, { loaders }, { fieldName }) {
+        return loaders.mdb.usersByIds
+          .load(obj.id)
+          .then((res) => res[fieldName]);
       },
     },
     namesCount: {
       type: GraphQLInt,
-      resolve(obj, args, context, { fieldName }) {
-        const { mPool } = context;
-        return mdb(mPool).getCounts(obj, fieldName);
+      resolve(obj, args, { loaders }, { fieldName }) {
+        return loaders.mdb.usersByIds.load(obj.id);
       },
     },
     votesCount: {
       type: GraphQLInt,
-      resolve(obj, args, context, { fieldName }) {
-        const { mPool } = context;
-        return mdb(mPool).getCounts(obj, fieldName);
+      resolve(obj, args, { loaders }, { fieldName }) {
+        return loaders.mdb.usersByIds.load(obj.id);
       },
     },
   },
