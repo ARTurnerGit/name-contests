@@ -40,7 +40,7 @@ module.exports = (pgPool) => {
     addNewContest({ apiKey, title, description }) {
       return pgPool
         .query(
-          `insert into contests(code, title, description, created_by) values($1, $2, $3 (select id from users where api_key = $4)) returning *`,
+          `insert into contests(code, title, description, created_by) values ($1, $2, $3, (select id from users where api_key = $4)) returning *`,
           [slug(title), title, description, apiKey]
         )
         .then((res) => humps.camelizeKeys(res.rows[0]));
