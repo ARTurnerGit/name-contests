@@ -34,7 +34,7 @@ module.exports = (pgPool) => {
     getNamesForContestIds(contestIds) {
       return pgPool
         .query(`select * from names where contest_id = ANY($1)`, [contestIds])
-        .then((res) => orderedFor(res.rows, contestIds, "contestIds", false));
+        .then((res) => orderedFor(res.rows, contestIds, "contestId", false));
     },
   };
 };
